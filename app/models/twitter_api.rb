@@ -5,8 +5,8 @@ class TwitterApi
     # USE TWEETSTREAM FOR NOW SINCE THE TWITTER GEM 
     # ADVISES AGAINST THEIR STREAMING CLIENT UNTIL VERSION 6
     # stream_client.filter(track: query) # twitter gem, takes a string
-    Rails.logger.info("start stream #{query}")
     # tweetstream gem, takes an array
+    Rails.logger.info(query)
     tweetstream_client.track(query) do |tweet|
       Rails.logger.info(tweet)
       yield(tweet)
@@ -70,7 +70,10 @@ class TwitterApi
   end
 
   def rest_client
-    @rest_client ||= Twitter::REST::Client.new({consumer_key: ENV["TWITTER_API_KEY"], consumer_secret: ENV["TWITTER_API_SECRET"], access_token: ENV["TWITTER_ACCESS_TOKEN"], access_token_secret: ENV["TWITTER_ACCESS_TOKEN_SECRET"]})
+    twitter_bot = TwitterBot.order("RAND()").first
+    @rest_client = Twitter::REST::Client.new({consumer_key: twitter_bot.key, consumer_secret: twitter_bot.secret, access_token: twitter_bot.token, access_token_secret: twitter_bot.token_secret})
+    twitter_bot.increment(:counter)
+    return @rest_client
   end
 
   private

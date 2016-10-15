@@ -12,6 +12,21 @@
 
 ActiveRecord::Schema.define(version: 20161015185223) do
 
+  create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "priority",                 default: 0, null: false
+    t.integer  "attempts",                 default: 0, null: false
+    t.text     "handler",    limit: 65535,             null: false
+    t.text     "last_error", limit: 65535
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  end
+
   create_table "hashtags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "phrase"
     t.string   "response"
@@ -27,6 +42,17 @@ ActiveRecord::Schema.define(version: 20161015185223) do
     t.datetime "updated_at", null: false
     t.integer  "hashtag_id"
     t.index ["hashtag_id"], name: "index_responses_on_hashtag_id", using: :btree
+  end
+
+  create_table "twitter_bots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "key"
+    t.string   "secret"
+    t.string   "token"
+    t.string   "token_secret"
+    t.integer  "counter",      default: 0
+    t.boolean  "active",       default: true
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
