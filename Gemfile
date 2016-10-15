@@ -11,7 +11,6 @@ gem 'devise', '~> 4.2'
 gem 'haml', '~> 4.0', '>= 4.0.7'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
-gem 'mysql2', '~> 0.4.4'
 gem 'omniauth-facebook'
 gem 'paperclip', '~> 5.1'
 gem 'puma', '~> 3.0'
@@ -22,9 +21,14 @@ gem 'uglifier', '>= 1.3.0'
 gem 'tweetstream', '~> 2.6.1'
 gem 'unicorn', '~> 5.1.0'
 
+group :production do
+  gem 'pg'
+end
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'dotenv-rails'
+  gem 'mysql2', '~> 0.4.4'
 end
 
 group :development do
