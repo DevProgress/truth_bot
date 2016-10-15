@@ -1,0 +1,16 @@
+<p>Find me in app/views/hashtags/index.html.erb</p>
+
+<h1>Listing Hashtags</h1>
+
+<table>
+  <tr>
+    <th>Phrase</th>
+  </tr>
+
+  <% @hashtags.each do |hashtag| %>
+    <tr>
+      <td><%= hashtag.phrase %></td>
+      <td><%= link_to 'Show', hashtag_path(hashtag) %></td>
+    </tr>
+  <% end %>
+</table>
