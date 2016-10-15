@@ -42,7 +42,7 @@ class TwitterApi
     sent_tweets = []
     for tweet in TwitterApi.split_tweets(text, screen_name)
       tweet_text = "@#{screen_name} - #{tweet}"
-      rest_client.update(tweet_text, options)
+      rest_c.update(tweet_text, options)
       sent_tweets << tweet_text
     end
 
@@ -70,7 +70,7 @@ class TwitterApi
   end
 
   def rest_client
-    twitter_bot = TwitterBot.where("last_tweet < now() - interval 1 minute or last_tweet is NULL").order("RAND()").first
+    twitter_bot = TwitterBot.where("last_tweet < now() - interval 1 minute or last_tweet is NULL and active = TRUE").order("RAND()").first
     if twitter_bot
       @rest_client = Twitter::REST::Client.new({consumer_key: twitter_bot.key, consumer_secret: twitter_bot.secret, access_token: twitter_bot.token, access_token_secret: twitter_bot.token_secret})
       twitter_bot.increment(:counter)
