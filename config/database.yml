@@ -1,0 +1,9 @@
+development:
+  adapter: mysql2
+  database: truth_bot_development
+  username: root
+  password: 
+  encoding: utf8
+  pool: 5
+  timeout: 10000
+  socket: /tmp/mysql.sock
