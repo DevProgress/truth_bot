@@ -35,7 +35,7 @@ class TwitterApi
     tweets
   end
 
-  def tweet(text, options = {})
+  def tweet(text, options = {}, rest_c)
     screen_name = options.delete(:screen_name)
     return false unless screen_name.present?
 
@@ -70,11 +70,15 @@ class TwitterApi
   end
 
   def rest_client
-    twitter_bot = TwitterBot.order("RAND()").first
-    @rest_client = Twitter::REST::Client.new({consumer_key: twitter_bot.key, consumer_secret: twitter_bot.secret, access_token: twitter_bot.token, access_token_secret: twitter_bot.token_secret})
-    twitter_bot.increment(:counter)
-    twitter_bot.save if twitter_bot.changed?
-    return @rest_client
+    twitter_bot = TwitterBot.where("llast_tweet < now() - interval 1 minute").order("RAND()").first
+    if twitter_bot
+      @rest_client = Twitter::REST::Client.new({consumer_key: twitter_bot.key, consumer_secret: twitter_bot.secret, access_token: twitter_bot.token, access_token_secret: twitter_bot.token_secret})
+      twitter_bot.increment(:counter)
+      twitter_bot.save if twitter_bot.changed?
+      return @rest_client
+    else
+      return false
+    end
   end
 
   private
