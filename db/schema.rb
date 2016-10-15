@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20161015181215) do
 
-  create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "priority",                 default: 0, null: false
-    t.integer  "attempts",                 default: 0, null: false
-    t.text     "handler",    limit: 65535,             null: false
-    t.text     "last_error", limit: 65535
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 20161015181215) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
-  create_table "hashtags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "hashtags", force: :cascade do |t|
     t.string   "phrase"
     t.string   "response"
     t.boolean  "active"
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 20161015181215) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "twitter_bots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "twitter_bots", force: :cascade do |t|
     t.string   "key"
     t.string   "secret"
     t.string   "token"
@@ -46,7 +49,7 @@ ActiveRecord::Schema.define(version: 20161015181215) do
     t.datetime "updated_at",                  null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

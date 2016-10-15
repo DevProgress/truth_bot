@@ -178,7 +178,6 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
-    pg (0.19.0)
     puma (3.6.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
@@ -297,7 +296,6 @@ DEPENDENCIES
   mysql2 (~> 0.4.4)
   omniauth-facebook
   paperclip (~> 5.1)
-  pg
   puma (~> 3.0)
   pundit
   rails (~> 5.0.0, >= 5.0.0.1)
