@@ -53,6 +53,7 @@ class TweetImporter
   def self.reply_to_tweet(tweet)
     return false if tweet[:screen_name].to_s.downcase == "simpolfy"
     hashtags = Hashtag.active
+    @phrase = nil
     hashtags.each do |h|
       if tweet[:text].include? h.phrase
         @phrase = h
