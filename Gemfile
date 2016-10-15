@@ -19,12 +19,12 @@ gem 'pundit'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
-gem 'dotenv-rails', :groups => [:development, :test]
 gem 'tweetstream', '~> 2.6.1'
 gem 'unicorn', '~> 5.1.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'dotenv-rails'
 end
 
 group :development do
