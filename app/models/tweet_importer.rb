@@ -48,7 +48,7 @@ class TweetImporter
     tweet_hash[:text] = tweet.text.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
     Rails.logger.debug("Found a tweet: #{tweet_hash.inspect}")
 
-    reply_to_tweet(tweet_hash)
+    reply_to_tweet.delay(tweet_hash)
   end
 
   def reply_to_tweet(tweet)
