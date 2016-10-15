@@ -1,0 +1,2 @@
+class TwitterBot < ApplicationRecord
+end
