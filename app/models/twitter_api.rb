@@ -5,7 +5,6 @@ class TwitterApi
     # USE TWEETSTREAM FOR NOW SINCE THE TWITTER GEM 
     # ADVISES AGAINST THEIR STREAMING CLIENT UNTIL VERSION 6
     # stream_client.filter(track: query) # twitter gem, takes a string
-    Rails.logger.info("start stream #{query}")
     # tweetstream gem, takes an array
     tweetstream_client.track(query) do |tweet|
       Rails.logger.info(tweet)
