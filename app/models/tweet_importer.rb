@@ -60,10 +60,16 @@ class TweetImporter
       end
     end
     if @phrase
-      reply = @phrase.response
-      TwitterApi.new.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]})
-      Rails.logger.debug("Replying to tweet with message: #{reply}")
-      return reply
+      twitter = TwitterApi.new
+      rest_client = twitter.rest_client
+      if rest_client
+        reply = @phrase.response
+        twitter.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]}, rest_client)
+        Rails.logger.debug("Replying to tweet with message: #{reply}")
+        return reply
+      else
+        TweetImporter.delay(run_at: 2.minutes.from_now).reply_to_tweet(tweet)
+      end
     end
   end
 
