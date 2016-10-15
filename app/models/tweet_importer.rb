@@ -47,10 +47,10 @@ class TweetImporter
     tweet_hash[:screen_name] = tweet.user.screen_name
     tweet_hash[:text] = tweet.text.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
     Rails.logger.debug("Found a tweet: #{tweet_hash.inspect}")
-    reply_to_tweet(tweet_hash)
+    TweetImporter.delay.reply_to_tweet(tweet_hash)
   end
 
-  def reply_to_tweet(tweet)
+  def self.reply_to_tweet(tweet)
     return false if tweet[:screen_name].to_s.downcase == "simpolfy"
     hashtags = Hashtag.active
     hashtags.each do |h|
