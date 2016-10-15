@@ -67,9 +67,6 @@ class TweetImporter
     tweet_hash[:screen_name] = tweet.user.screen_name
     tweet_hash[:hashtags] = tweet.hashtags.map {|h| h.text.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')}
     tweet_hash[:text] = tweet.text.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-    Rails.logger.debug("Found a tweet: #{tweet_hash.inspect}")
-    
-    @tweets << tweet_hash unless tweet_hash[:screen_name].to_s.downcase == 'simpolfy'
 
     Rails.logger.debug("Found a tweet: #{tweet_hash.inspect}")
 
@@ -121,31 +118,33 @@ class TweetImporter
   end
 
   def self.reply_to_tweet!(tweet, user_id = nil, ignore_env = false)
-    return false if tweet[:screen_name].to_s.downcase == "simpolfy"
+    for tweet in tweets
+      return false if tweet[:screen_name].to_s.downcase == "simpolfy"
 
-    hashtags = Hashtag.active.where(tag: tweet[:hashtags])
+      hashtags = Hashtag.active.where(tag: tweet[:hashtags])
 
-    if user_id
-      user = User.find(user_id)
+      if user_id
+        user = User.find(user_id)
 
-      short_response = hashtags.map {|h| h.response}.to_sentence
+        short_response = hashtags.map {|h| h.response}.to_sentence
 
-      reply = "we got your vote " + short_response + "! "
+        reply = "we got your vote " + short_response + "! "
 
-      hashtag = hashtags.first
-      reply = reply + hashtag.issue_politicians_response(user,'Twitter').to_s
-      reply = reply + "http://www.simpolfy.com" + hashtag.source_path
+        hashtag = hashtags.first
+        reply = reply + hashtag.issue_politicians_response(user,'Twitter').to_s
+        reply = reply + "http://www.simpolfy.com" + hashtag.source_path
 
-    elsif hashtags.order("guest_response DESC").first.try(:guest_response).present?
-      reply = hashtags.order("guest_response DESC").first.try(:guest_response)
-    else
-      tags = tweet[:hashtags].to_sentence
-      reply = "thanks for voting on #{tags}! Signup on Simpolfy.com if you want it to count in the tally."
-    end
+      elsif hashtags.order("guest_response DESC").first.try(:guest_response).present?
+        reply = hashtags.order("guest_response DESC").first.try(:guest_response)
+      else
+        tags = tweet[:hashtags].to_sentence
+        reply = "thanks for voting on #{tags}! Signup on Simpolfy.com if you want it to count in the tally."
+      end
 
-    if (Rails.env.production? or ignore_env) and reply.present?
-      TwitterApi.new.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]})
-      Rails.logger.debug("Replying to tweet with message: #{reply}")
+      if (Rails.env.production? or ignore_env) and reply.present?
+        TwitterApi.new.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]})
+        Rails.logger.debug("Replying to tweet with message: #{reply}")
+      end
     end
 
     return reply

@@ -11,7 +11,6 @@ class TwitterApi
       Rails.logger.info(tweet)
       yield(tweet)
     end
-    Rails.logger.info("end")
   end
 
   def search(query, max_pages = 1)
