@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 20161015210021) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "text"
+    t.integer  "counter"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "hashtag_id"
+    t.index ["hashtag_id"], name: "index_responses_on_hashtag_id", using: :btree
+  end
+
   create_table "twitter_bots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "key"
     t.string   "secret"
@@ -68,4 +77,5 @@ ActiveRecord::Schema.define(version: 20161015210021) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "responses", "hashtags"
 end

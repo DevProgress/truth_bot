@@ -1,0 +1,8 @@
+<h1>Responses#index</h1>
+
+<% @responses.each do |response| %>
+	<p>
+		<strong><%= response.hashtag.phrase %></strong>
+		<%= response.text %>
+	</p>
+<% end %>
