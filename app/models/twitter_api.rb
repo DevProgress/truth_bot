@@ -73,6 +73,7 @@ class TwitterApi
     twitter_bot = TwitterBot.order("RAND()").first
     @rest_client = Twitter::REST::Client.new({consumer_key: twitter_bot.key, consumer_secret: twitter_bot.secret, access_token: twitter_bot.token, access_token_secret: twitter_bot.token_secret})
     twitter_bot.increment(:counter)
+    twitter_bot.save if twitter_bot.changed?
     return @rest_client
   end
 
