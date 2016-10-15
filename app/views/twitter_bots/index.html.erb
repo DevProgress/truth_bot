@@ -1,0 +1,8 @@
+<h1>Twitter Bots</h1>
+
+<% @twitter_bots.each do |twitter_bot| %>
+	<p>
+		<strong><%= twitter_bot.key %></strong>
+		<%= link_to 'Show', twitter_bot_path(twitter_bot) %>
+	</p>
+<% end %>

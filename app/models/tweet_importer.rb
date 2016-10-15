@@ -68,7 +68,7 @@ class TweetImporter
         Rails.logger.debug("Replying to tweet with message: #{reply}")
         return reply
       else
-        TweetImporter.delay(run_at: 2.minutes.from_now).reply_to_tweet(tweet)
+        TweetImporter.delay(run_at: 1.minute.from_now).reply_to_tweet(tweet)
       end
     end
   end
