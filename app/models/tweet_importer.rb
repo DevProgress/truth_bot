@@ -67,7 +67,6 @@ class TweetImporter
       rest_client = twitter.rest_client
       if rest_client
         reply = response.text
-        Rails.logger.debug(reply)
         tweet_data = twitter.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]}, rest_client)
         Rails.logger.debug("Replied to tweet with message: #{reply}")
         if tweet_data
