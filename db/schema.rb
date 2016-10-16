@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161016143801) do
+ActiveRecord::Schema.define(version: 20161016161630) do
 
   create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "priority",                 default: 0, null: false
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(version: 20161016143801) do
     t.boolean  "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "topic_id"
+  end
+
+  create_table "intro_phrases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -39,12 +46,18 @@ ActiveRecord::Schema.define(version: 20161016143801) do
     t.integer  "counter",    default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "hashtag_id"
-    t.index ["hashtag_id"], name: "index_responses_on_hashtag_id", using: :btree
+    t.integer  "topic_id"
+    t.index ["topic_id"], name: "index_responses_on_topic_id", using: :btree
+  end
+
+  create_table "topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tweets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "twitter_id"
+    t.string   "twitter"
     t.string   "user"
     t.string   "text"
     t.string   "response_to_tweet"
@@ -86,5 +99,4 @@ ActiveRecord::Schema.define(version: 20161016143801) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "responses", "hashtags"
 end
