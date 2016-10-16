@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161015210021) do
+ActiveRecord::Schema.define(version: 20161015233407) do
 
   create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "priority",                 default: 0, null: false
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20161015210021) do
 
   create_table "hashtags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "phrase"
-    t.string   "response"
     t.boolean  "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -37,9 +36,9 @@ ActiveRecord::Schema.define(version: 20161015210021) do
 
   create_table "responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "text"
-    t.integer  "counter"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "counter",    default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "hashtag_id"
     t.index ["hashtag_id"], name: "index_responses_on_hashtag_id", using: :btree
   end
@@ -67,7 +66,7 @@ ActiveRecord::Schema.define(version: 20161015210021) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "role"
+    t.integer  "role",                   default: 0
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "facebook_id"
