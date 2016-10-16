@@ -1,8 +1,14 @@
 <h1>Responses#index</h1>
 
+<ul>
+	<li><%= link_to 'New topic', new_topic_path %></li>
+	<li><%= link_to 'New hashtag', new_hashtag_path %></li>
+	<li><%= link_to 'New response', new_response_path %></li>
+</ul>
+
 <% @responses.each do |response| %>
 	<p>
-		<strong><%= response.hashtag.phrase %></strong>
+		<strong><%= response.topic.name %></strong>
 		<%= response.text %>
 	</p>
 <% end %>

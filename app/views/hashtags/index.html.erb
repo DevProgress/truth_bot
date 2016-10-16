@@ -1,16 +1,24 @@
-<p>Find me in app/views/hashtags/index.html.erb</p>
+<h1>Hashtags</h1>
 
-<h1>Listing Hashtags</h1>
+<ul>
+	<li><%= link_to 'New topic', new_topic_path %></li>
+	<li><%= link_to 'New hashtag', new_hashtag_path %></li>
+	<li><%= link_to 'New response', new_response_path %></li>
+</ul>
 
+
+<%= link_to 'New', new_hashtag_path %>
 <table>
   <tr>
+    <th>Topic</th>
     <th>Phrase</th>
   </tr>
 
   <% @hashtags.each do |hashtag| %>
     <tr>
+      <td><%= hashtag.topic.name %></td>
       <td><%= hashtag.phrase %></td>
-      <td><%= link_to 'Show', hashtag_path(hashtag) %></td>
+      <td><%= link_to 'Edit', edit_hashtag_path(hashtag) %></td>
     </tr>
   <% end %>
 </table>
