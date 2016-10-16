@@ -1,0 +1,2 @@
+class IntroPhrase < ApplicationRecord
+end

@@ -60,13 +60,14 @@ class TweetImporter
         break
       end
     end
-    response = Response.where(hashtag_id: @hashtag.id).order("RAND()").first if @hashtag
-
+    response = Response.where(topic_id: @hashtag.topic.id).order("RAND()").first if @hashtag
     if @hashtag and response
       twitter = TwitterApi.new
       rest_client = twitter.rest_client
       if rest_client
-        reply = response.text
+        intro = IntroPhrase.all.order("RAND()").first
+
+        reply = "#{intro.text} #{response.text}"
         tweet_data = twitter.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]}, rest_client)
         Rails.logger.debug("Replied to tweet with message: #{reply}")
         if tweet_data
