@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161015233407) do
+ActiveRecord::Schema.define(version: 20161016143801) do
 
   create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "priority",                 default: 0, null: false
@@ -41,6 +41,16 @@ ActiveRecord::Schema.define(version: 20161015233407) do
     t.datetime "updated_at",             null: false
     t.integer  "hashtag_id"
     t.index ["hashtag_id"], name: "index_responses_on_hashtag_id", using: :btree
+  end
+
+  create_table "tweets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "twitter_id"
+    t.string   "user"
+    t.string   "text"
+    t.string   "response_to_tweet"
+    t.string   "response_to_user"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "twitter_bots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
