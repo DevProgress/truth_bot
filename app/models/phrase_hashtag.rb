@@ -1,0 +1,2 @@
+class PhraseHashtag < ApplicationRecord
+end
