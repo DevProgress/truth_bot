@@ -1,0 +1,9 @@
+
+<%= simple_form_for :twitter_bot, url:twitter_bot_path(@twitter_bot), method: :patch do |f| %>
+  <%= f.input :key %>
+  <%= f.input :secret %>
+  <%= f.input :token %>
+  <%= f.input :token_secret %>
+	<%= f.input :active, as: :boolean, checked_value: true, unchecked_value: false %>
+  <%= f.button :submit %>
+<% end %>

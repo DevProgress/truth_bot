@@ -1,3 +1,10 @@
+
+<p>
+<%= link_to 'Back', twitter_bots_path %>
+</p>
+<p>
+<%= link_to 'Edit', edit_twitter_bot_path(@twitter_bot) %>
+</p>
 <p>
 	<strong>Key:</strong>
 	<%= @twitter_bot.key %>
@@ -13,4 +20,12 @@
 <p>
 	<strong>Token Secret: </strong>
 	<input type="password" value=<%= @twitter_bot.token_secret %> />
+</p>
+<p>
+	<strong>Active: </strong>
+	<% if @twitter_bot.active %>
+		<input type="checkbox" value=<%= @twitter_bot.active %> checked disabled />
+	<% else %>
+		<input type="checkbox" value=<%= @twitter_bot.active %> disabled />
+	<% end %>
 </p>

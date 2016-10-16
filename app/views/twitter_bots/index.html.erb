@@ -1,8 +1,14 @@
 <h1>Twitter Bots</h1>
+<%= link_to 'New', new_twitter_bot_path %>
 
 <% @twitter_bots.each do |twitter_bot| %>
 	<p>
 		<strong><%= twitter_bot.key %></strong>
-		<%= link_to 'Show', twitter_bot_path(twitter_bot) %>
+		<% if twitter_bot.active %>
+			<span class="text-success">active</span>
+		<% else %>
+			<span class="bg-danger">inactive</span>
+		<% end %>
+		<%= link_to 'Edit', edit_twitter_bot_path(twitter_bot) %>
 	</p>
 <% end %>
