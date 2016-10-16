@@ -1,0 +1,9 @@
+<h1>Topic#index</h1>
+<p>Find me in app/views/topic/index.html.erb</p>
+
+<% @topics.each do |topic| %>
+	<p>
+		<%= topic.name %>
+		<%= link_to 'Edit', edit_topic_path(topic) %>
+	</p>
+<% end %>
