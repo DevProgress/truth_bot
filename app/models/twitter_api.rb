@@ -42,11 +42,11 @@ class TwitterApi
     sent_tweets = []
     for tweet in TwitterApi.split_tweets(text, screen_name)
       tweet_text = "@#{screen_name} - #{tweet}"
-      rest_c.update(tweet_text, options)
+      @response = rest_c.update(tweet_text, options)
       sent_tweets << tweet_text
     end
 
-    return sent_tweets
+    return @response
   end
 
   def self.split_tweets(text, screen_name)
