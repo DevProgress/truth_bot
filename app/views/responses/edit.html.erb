@@ -1,0 +1,5 @@
+<%= simple_form_for :response, url:response_path(@response), method: :patch do |f| %>
+  <%= f.input :hashtag_id, :collection => @hashtags, :selected => :hashtag_id %>
+  <%= f.input :text %>
+  <%= f.button :submit %>
+<% end %>

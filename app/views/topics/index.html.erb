@@ -1,0 +1,24 @@
+<h1>Topic#index</h1>
+
+<ul>
+	<li><%= link_to 'New topic', new_topic_path %></li>
+	<li><%= link_to 'New hashtag', new_hashtag_path %></li>
+	<li><%= link_to 'New response', new_response_path %></li>
+</ul>
+
+<% @topics.each do |topic| %>
+	<h2><%= topic.name %></h2>
+	<p><%= link_to 'Edit', edit_topic_path(topic) %></p>
+	<em>Phrases</em>
+	<ul>
+		<%- topic.hashtags.each do |hashtag| %>
+			<li><%= hashtag.phrase %> <%= link_to 'Edit', edit_hashtag_path(hashtag) %></li>
+		<% end %>
+	</ul>
+	<em>Responses</em>
+	<ul>
+		<%- topic.responses.each do |response| %>
+			<li><%= response.text %> <%= link_to 'Edit', edit_response_path(response) %></li>
+		<% end %>
+	</ul>
+<% end %>
