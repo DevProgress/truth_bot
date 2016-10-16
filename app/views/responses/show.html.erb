@@ -1,8 +1,11 @@
+<%= link_to 'Back', topics_path %>
+
 <p>
 	<strong>Phrase:</strong>
-	<%= @response.hashtag_id %>
+	<%= @response.topic.name %>
 </p>
 <p>
 	<strong>Response: </strong>
 	<%= @response.text %>
 </p>
+

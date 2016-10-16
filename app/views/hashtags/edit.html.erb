@@ -1,0 +1,8 @@
+<h1>Hashtag#edit</h1>
+
+<%= simple_form_for :hashtag, url:hashtag_path(@hashtag), method: :patch do |f| %>
+	<%= f.input :topic_id, :collection => @topics, :selected => :topic_id %>
+	<%= f.input :phrase %>
+	<%= f.button :submit %>
+<% end %>
+

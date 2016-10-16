@@ -1,5 +1,5 @@
 <%= simple_form_for :response, url:responses_path do |f| %>
-  <%= f.input :hashtag_id, :collection => @hashtags %>
+  <%= f.input :topic_id, :collection => @topics %>
   <%= f.input :text %>
   <%= f.button :submit %>
 <% end %>

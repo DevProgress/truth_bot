@@ -1,4 +1,5 @@
 <%= simple_form_for :hashtag, url:hashtags_path do |f| %>
+	<%= f.input :topic_id, :collection => @topics %>
   <%= f.input :phrase %>
   <%= f.button :submit %>
 <% end %>
