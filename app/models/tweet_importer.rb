@@ -67,8 +67,17 @@ class TweetImporter
       rest_client = twitter.rest_client
       if rest_client
         reply = response.text
-        twitter.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]}, rest_client)
-        Rails.logger.debug("Replying to tweet with message: #{reply}")
+        tweet_data = twitter.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]}, rest_client)
+        Rails.logger.debug("Replied to tweet with message: #{reply}")
+        if tweet_data
+          Rails.logger.debug(tweet_data)
+          new_tweet = Tweet.where(twitter: tweet_data.id).first_or_initialize
+          new_tweet.user = tweet_data.user.screen_name
+          new_tweet.text = tweet_data.text
+          new_tweet.response_to_tweet = tweet[:tweet_id]
+          new_tweet.response_to_user = tweet[:screen_name]
+          new_tweet.save if new_tweet.new_record? or new_tweet.changed?
+        end
         return reply
       else
         TweetImporter.delay(run_at: 1.minute.from_now).reply_to_tweet(tweet)
