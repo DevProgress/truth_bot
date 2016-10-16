@@ -5,3 +5,30 @@
 .alert-info {
   margin-bottom:0;
 }
+
+.center{
+  text-align: center;
+}
+
+.btn-home{
+  margin: 20px auto;
+  display: block;
+  height: 50px;
+  width: 300px;
+  text-align: center;
+  padding: 0px !important;
+  .fa-facebook{
+    padding-top: 1px;
+  }
+  .sign-in{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    padding-top: 11px;
+    padding-left: 58px;
+  }
+  .signed-in{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    padding-top: 11px;
+  }
+}

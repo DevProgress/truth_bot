@@ -53,18 +53,20 @@ class TweetImporter
   def self.reply_to_tweet(tweet)
     return false if tweet[:screen_name].to_s.downcase == "simpolfy"
     hashtags = Hashtag.active
-    @phrase = nil
+    @hashtag = nil
     hashtags.each do |h|
       if tweet[:text].include? h.phrase
-        @phrase = h
+        @hashtag = h
         break
       end
     end
-    if @phrase
+    response = Response.where(hashtag_id: @hashtag.id).order("RAND()").first if @hashtag
+
+    if @hashtag and response
       twitter = TwitterApi.new
       rest_client = twitter.rest_client
       if rest_client
-        reply = @phrase.response
+        reply = response.text
         twitter.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]}, rest_client)
         Rails.logger.debug("Replying to tweet with message: #{reply}")
         return reply

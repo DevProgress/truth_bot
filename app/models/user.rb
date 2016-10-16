@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
 
+  enum role: [:user, :admin]
+
   def self.from_omniauth(auth)
     where(facebook_id: auth.uid).first_or_create do |user|
       user.email = auth.info.email
