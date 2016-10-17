@@ -70,7 +70,8 @@ class TwitterApi
   end
 
   def rest_client
-    twitter_bot = TwitterBot.where("last_tweet < now() - interval 1 minute or last_tweet is NULL and active = TRUE").order("RAND()").first
+    [25..30].sample
+    twitter_bot = TwitterBot.where("last_tweet < now() - interval #{[25..30].sample} minute or last_tweet is NULL and active = TRUE").order("RAND()").first
     if twitter_bot
       @rest_client = Twitter::REST::Client.new({consumer_key: twitter_bot.key, consumer_secret: twitter_bot.secret, access_token: twitter_bot.token, access_token_secret: twitter_bot.token_secret})
       twitter_bot.increment(:counter)

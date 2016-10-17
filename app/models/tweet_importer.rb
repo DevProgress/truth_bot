@@ -83,8 +83,8 @@ class TweetImporter
           new_tweet.save if new_tweet.new_record? or new_tweet.changed?
         end
         return reply
-      else
-        TweetImporter.delay(run_at: 1.minute.from_now).reply_to_tweet(tweet)
+      #else
+        #TweetImporter.delay(run_at: 1.minute.from_now).reply_to_tweet(tweet)
       end
     end
   end
