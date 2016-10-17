@@ -22,7 +22,6 @@ class TweetImporter
     query = hashtags.map {|h| "#{h.phrase}"}
     
     Rails.logger.info("Starting to observe twitter stream...")
-    
 
     api.stream(query) do |tweet|
       parse_tweet(tweet)
@@ -61,7 +60,7 @@ class TweetImporter
       end
     end
     if @hashtag
-      response = Response.where(topic_id: @hashtag.topic.id).order("RAND()").first 
+      response = ShortURL.shorten(Response.where(topic_id: @hashtag.topic.id).order("RAND()").first.text)
       phrase_hashtag = PhraseHashtag.where(topic_id: @hashtag.topic.id).order("RAND()").first 
     end
     if @hashtag and response
@@ -69,7 +68,7 @@ class TweetImporter
       rest_client = twitter.rest_client
       if rest_client
         intro = IntroPhrase.all.order("RAND()").first
-        reply = "#{intro.text} #{response.text}"
+        reply = "#{intro.text} #{response}"
         reply = reply + " ##{phrase_hashtag.text}" if phrase_hashtag
         tweet_data = twitter.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]}, rest_client)
         Rails.logger.debug("Replied to tweet with message: #{reply}")

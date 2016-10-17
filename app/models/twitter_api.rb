@@ -7,6 +7,7 @@ class TwitterApi
     # stream_client.filter(track: query) # twitter gem, takes a string
     # tweetstream gem, takes an array
     Rails.logger.info(query)
+    Rails.logger.info(YAML::dump(@tweetstream_client))
     tweetstream_client.track(query) do |tweet|
       Rails.logger.info(tweet)
       yield(tweet)
@@ -38,14 +39,18 @@ class TwitterApi
   def tweet(text, options = {}, rest_c)
     screen_name = options.delete(:screen_name)
     return false unless screen_name.present?
-
     sent_tweets = []
     for tweet in TwitterApi.split_tweets(text, screen_name)
       tweet_text = "@#{screen_name} - #{tweet}"
-      @response = rest_c.update(tweet_text, options)
+      begin
+        @response = rest_c.update(tweet_text, options)
+      rescue Twitter::Error::Forbidden => e
+        @twitter_bot.active = false
+        @twitter_bot.save
+        return false
+      end
       sent_tweets << tweet_text
     end
-
     return @response
   end
 
@@ -70,19 +75,18 @@ class TwitterApi
   end
 
   def rest_client
-    twitter_bot = TwitterBot.where("last_tweet < now() - interval #{[25..30].sample} minute or last_tweet is NULL and active = TRUE").order("RAND()").first
-    if twitter_bot
-      @rest_client = Twitter::REST::Client.new({consumer_key: twitter_bot.key, consumer_secret: twitter_bot.secret, access_token: twitter_bot.token, access_token_secret: twitter_bot.token_secret})
-      twitter_bot.increment(:counter)
-      twitter_bot.last_tweet = Time.now
-      twitter_bot.save if twitter_bot.changed?
+    #@twitter_bot = TwitterBot.where("last_tweet < now() - interval #{[*25..30].sample} minute or last_tweet is NULL and active = TRUE").order("RAND()").first
+    @twitter_bot = TwitterBot.first
+    if @twitter_bot
+      @rest_client = Twitter::REST::Client.new({consumer_key: @twitter_bot.key, consumer_secret: @twitter_bot.secret, access_token: @twitter_bot.token, access_token_secret: @twitter_bot.token_secret})
+      @twitter_bot.increment(:counter)
+      @twitter_bot.last_tweet = Time.now
+      @twitter_bot.save if @twitter_bot.changed?
       return @rest_client
     else
       return false
     end
   end
-
-  private
   
   def stream_client
     @streaming_client ||= Twitter::Streaming::Client.new({consumer_key: ENV["TWITTER_API_KEY"], consumer_secret: ENV["TWITTER_API_SECRET"], access_token: ENV["TWITTER_ACCESS_TOKEN"], access_token_secret: ENV["TWITTER_ACCESS_TOKEN_SECRET"]})
