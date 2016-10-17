@@ -39,7 +39,6 @@ class TwitterApi
   def tweet(text, options = {}, rest_c)
     screen_name = options.delete(:screen_name)
     return false unless screen_name.present?
-    sent_tweets = []
     for tweet in TwitterApi.split_tweets(text, screen_name)
       tweet_text = "@#{screen_name} - #{tweet}"
       begin
@@ -49,7 +48,6 @@ class TwitterApi
         @twitter_bot.save
         return false
       end
-      sent_tweets << tweet_text
     end
     return @response
   end
@@ -76,7 +74,7 @@ class TwitterApi
 
   def rest_client
     #@twitter_bot = TwitterBot.where("last_tweet < now() - interval #{[*25..30].sample} minute or last_tweet is NULL and active = TRUE").order("RAND()").first
-    @twitter_bot = TwitterBot.first
+    @twitter_bot = TwitterBot.where(active: true).first
     if @twitter_bot
       @rest_client = Twitter::REST::Client.new({consumer_key: @twitter_bot.key, consumer_secret: @twitter_bot.secret, access_token: @twitter_bot.token, access_token_secret: @twitter_bot.token_secret})
       @twitter_bot.increment(:counter)
