@@ -10,7 +10,8 @@
   %tbody
     - @tweets.each do |tweet|
       %tr
-        %td.center= tweet.user
+        %td.center
+          = link_to tweet.user, "https://twitter.com/#{tweet.user}/status/#{tweet.twitter}"
         %td.center= tweet.response_to_user
         %td.center= local_time(tweet.created_at, format: '%b %e, %l:%M %p %Z')
         %td= tweet.text
