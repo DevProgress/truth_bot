@@ -9,7 +9,7 @@ class TwitterBotsController < ApplicationController
 	end
 
   def index
-		@twitter_bots = TwitterBot.all
+		@twitter_bots = TwitterBot.all.order("active DESC, id DESC")
   end
 
 	def new
