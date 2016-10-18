@@ -1,4 +1,13 @@
 class ResponsesController < ApplicationController
+	before_action :check_admin
+
+	def check_admin
+		if !current_user or !current_user.admin?
+			flash[:danger] = "You are not authorized to perform this action."
+    	redirect_to menu_path
+		end
+	end
+	
   def index
 		@responses = Response.all
   end

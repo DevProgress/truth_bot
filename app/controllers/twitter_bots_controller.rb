@@ -1,4 +1,13 @@
 class TwitterBotsController < ApplicationController
+	before_action :check_admin
+
+	def check_admin
+		if !current_user or !current_user.admin?
+			flash[:danger] = "You are not authorized to perform this action."
+    	redirect_to menu_path
+		end
+	end
+
   def index
 		@twitter_bots = TwitterBot.all
   end
@@ -12,9 +21,14 @@ class TwitterBotsController < ApplicationController
 
 	def create
 		@twitter_bot = TwitterBot.new(twitter_bot_params)
-
-		@twitter_bot.save
-		redirect_to @twitter_bot
+		save = @twitter_bot.save
+		if save
+			flash[:success] = "Twitter Bot created!"
+			redirect_to twitter_bots_path
+		else
+			flash[:danger] = "Error. Make sure all fields are included."
+			redirect_to new_twitter_bot_path
+		end
 	end
 
 	private

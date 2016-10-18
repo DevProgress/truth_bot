@@ -1,0 +1,15 @@
+.center
+  %h1 Twitter Bots
+
+  = link_to "Create New", new_twitter_bot_path, class: "btn btn-primary"
+
+%table.table.table-hover.center
+  %tr
+    %th.center ID
+    %th.center Twitter Account
+    %th.center Active
+  - @twitter_bots.each do |bot|
+    %tr
+      %td= link_to bot.id, twitter_bot_path(bot)
+      %td= link_to bot.twitter_handle, twitter_bot_path(bot)
+      %td= link_to bot.active.to_s, twitter_bot_path(bot)

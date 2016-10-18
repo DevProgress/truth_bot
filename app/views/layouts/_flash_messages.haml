@@ -1,0 +1,2 @@
+- flash.each do |name, msg|
+  = content_tag(:div, raw(msg), class: "flash-message alert alert-#{%w{alert notice}.include?(name) ? 'info' : name}")
