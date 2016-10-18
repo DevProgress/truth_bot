@@ -2,14 +2,8 @@ class TwitterApi
   require 'tweetstream'
 
   def stream(query)
-    # USE TWEETSTREAM FOR NOW SINCE THE TWITTER GEM 
-    # ADVISES AGAINST THEIR STREAMING CLIENT UNTIL VERSION 6
-    # stream_client.filter(track: query) # twitter gem, takes a string
-    # tweetstream gem, takes an array
     Rails.logger.info(query)
-    Rails.logger.info(YAML::dump(@tweetstream_client))
     tweetstream_client.track(query) do |tweet|
-      Rails.logger.info(tweet)
       yield(tweet)
     end
   end

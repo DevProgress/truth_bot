@@ -84,6 +84,9 @@ class TweetImporter
       else
         TweetImporter.delay(run_at: 1.minute.from_now).reply_to_tweet(tweet)
       end
+    else
+      Rails.logger.debug("No hashtag: #{tweet[:text]}") if !@hashtag
+      Rails.logger.debug("No response: Topic #{@hashtag.topic.id}") if !response
     end
   end
 
