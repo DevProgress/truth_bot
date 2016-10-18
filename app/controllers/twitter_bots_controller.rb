@@ -33,7 +33,7 @@ class TwitterBotsController < ApplicationController
 
 	private
 		def twitter_bot_params
-			params.require(:twitter_bot).permit(:key, :secret, :token, :token_secret, :active)
+			params.require(:twitter_bot).permit(:key, :secret, :token, :token_secret, :active, :twitter_handle)
 		end
 
 end
