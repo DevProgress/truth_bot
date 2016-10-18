@@ -40,7 +40,6 @@ class TweetImporter
 
   def parse_tweet(tweet)
     tweet_hash = {}
-
     tweet_hash[:tweet_id] = tweet.id
     tweet_hash[:twitter_id] = tweet.user.try(:id_str)
     tweet_hash[:screen_name] = tweet.user.screen_name
@@ -86,7 +85,7 @@ class TweetImporter
       end
     else
       Rails.logger.debug("No hashtag: #{tweet[:text]}") if !@hashtag
-      Rails.logger.debug("No response: Topic #{@hashtag.topic.id}") if !response
+      Rails.logger.debug("No response: Topic #{@hashtag.topic.id}") if @hashtag and !response
     end
   end
 
