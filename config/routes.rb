@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 	resources :responses
   resources :twitter_bots
 	resources :topics
+  resources :tweets, only: :index
   get 'menu' => "pages#menu", as: :menu
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}

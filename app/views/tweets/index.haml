@@ -1,0 +1,16 @@
+.center
+  %h1 Tweets
+%table.table.hover
+  %thead
+    %tr
+      %th.center User
+      %th.center Response To
+      %th.center Datetime
+      %th.center Tweet
+  %tbody
+    - @tweets.each do |tweet|
+      %tr
+        %td.center= tweet.user
+        %td.center= tweet.response_to_user
+        %td.center= local_time(tweet.created_at, format: '%b %e, %l:%M %p %Z')
+        %td= tweet.text
