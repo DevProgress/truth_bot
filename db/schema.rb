@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161016190027) do
+ActiveRecord::Schema.define(version: 20161018105205) do
 
   create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "priority",                 default: 0, null: false
@@ -27,7 +27,14 @@ ActiveRecord::Schema.define(version: 20161016190027) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
-  create_table "hashtags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "deplorable_tweets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "twitter"
+    t.string   "retweet"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hashtags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "phrase"
     t.boolean  "active"
     t.datetime "created_at", null: false
@@ -35,13 +42,13 @@ ActiveRecord::Schema.define(version: 20161016190027) do
     t.integer  "topic_id"
   end
 
-  create_table "intro_phrases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "intro_phrases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "phrase_hashtags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "phrase_hashtags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "topic_id"
     t.string   "text"
     t.datetime "created_at", null: false
@@ -49,7 +56,7 @@ ActiveRecord::Schema.define(version: 20161016190027) do
     t.index ["topic_id"], name: "index_phrase_hashtags_on_topic_id", using: :btree
   end
 
-  create_table "responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "text"
     t.integer  "counter",    default: 0
     t.datetime "created_at",             null: false
@@ -58,13 +65,13 @@ ActiveRecord::Schema.define(version: 20161016190027) do
     t.index ["topic_id"], name: "index_responses_on_topic_id", using: :btree
   end
 
-  create_table "topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tweets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "tweets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "twitter"
     t.string   "user"
     t.string   "text"
@@ -74,16 +81,17 @@ ActiveRecord::Schema.define(version: 20161016190027) do
     t.datetime "updated_at",        null: false
   end
 
-  create_table "twitter_bots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "twitter_bots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "key"
     t.string   "secret"
     t.string   "token"
     t.string   "token_secret"
-    t.integer  "counter",      default: 0
-    t.boolean  "active",       default: true
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "counter",        default: 0
+    t.boolean  "active",         default: true
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.datetime "last_tweet"
+    t.string   "twitter_handle"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
