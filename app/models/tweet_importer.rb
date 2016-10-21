@@ -71,7 +71,7 @@ class TweetImporter
         reply = "#{intro.text} #{response}"
         reply = reply + " ##{phrase_hashtag.text}" if phrase_hashtag
         tweet_data = twitter.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]}, rest_client)
-        Rails.logger.debug("Replied to tweet with message: #{reply}")
+        Rails.logger.debug("Replied to tweet with message: #{reply} #{tweet_data.inspect}")
         if tweet_data
           new_tweet = Tweet.where(twitter: tweet_data.id).first_or_initialize
           new_tweet.user = tweet_data.user.screen_name
