@@ -3,6 +3,7 @@
     %br= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-lg btn-primary"
 - if current_user.admin?
   .list-group
+    %a.list-group-item{:href => intro_phrases_path} Intro Phrases
     %a.list-group-item{:href => hashtags_path} Phrases
     %a.list-group-item{:href => responses_path} Responses
     %a.list-group-item{:href => twitter_bots_path} Twitter Bots

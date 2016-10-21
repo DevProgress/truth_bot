@@ -17,6 +17,7 @@ class TopicsController < ApplicationController
   end
 
   def new
+    @topic = Topic.new
   end
 
   def edit
@@ -43,6 +44,6 @@ class TopicsController < ApplicationController
 
 	private
 		def topic_params
-			params.require(:topic).permit(:name)
+			params.require(:topic).permit(:name, :pro_hillary)
 		end
 end

@@ -1,0 +1,18 @@
+%h1 Intro Phrases
+
+=link_to "New Intro Phrase", new_intro_phrase_path, class: "btn btn-primary"
+
+%table.table.table-hover
+  %thead
+    %tr
+      %th
+        Text
+      %th
+        Pro-Hillary
+  %tbody
+    - @intro_phrases.each do |intro_phase|
+      %tr
+        %td
+          =link_to intro_phase.text, intro_phrase_path(intro_phase)
+        %td
+          =link_to intro_phase.pro_hillary, intro_phrase_path(intro_phase)

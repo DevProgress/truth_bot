@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 	resources :responses
   resources :twitter_bots
 	resources :topics
+  resources :intro_phrases
   resources :tweets, only: :index
   get 'menu' => "pages#menu", as: :menu
 

@@ -1,7 +1,0 @@
-<%= simple_form_for :twitter_bot, url:twitter_bots_path do |f| %>
-  <%= f.input :key %>
-  <%= f.input :secret %>
-  <%= f.input :token %>
-  <%= f.input :token_secret %>
-  <%= f.button :submit %>
-<% end %>
