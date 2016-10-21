@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018105205) do
+ActiveRecord::Schema.define(version: 20161021115600) do
 
   create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "priority",                 default: 0, null: false
@@ -44,8 +44,9 @@ ActiveRecord::Schema.define(version: 20161018105205) do
 
   create_table "intro_phrases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "pro_hillary", default: false
   end
 
   create_table "phrase_hashtags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -67,8 +68,9 @@ ActiveRecord::Schema.define(version: 20161018105205) do
 
   create_table "topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "pro_hillary", default: false
   end
 
   create_table "tweets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

@@ -66,7 +66,8 @@ class TweetImporter
       twitter = TwitterApi.new
       rest_client = twitter.rest_client
       if rest_client
-        intro = IntroPhrase.all.order("RAND()").first
+
+        intro = IntroPhrase.where("pro_hillary is null or pro_hillary = #{@hashtag.topic.pro_hillary}").order("RAND()").first
         reply = "#{intro.text} #{response}"
         reply = reply + " ##{phrase_hashtag.text}" if phrase_hashtag
         tweet_data = twitter.tweet(reply, {in_reply_to_status_id: tweet[:tweet_id], screen_name: tweet[:screen_name]}, rest_client)
