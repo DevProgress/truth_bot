@@ -1,4 +1,4 @@
-= simple_form_for @intro_phrase, url: @intro_phrase.nil? ? intro_phrases_path : intro_phrase_path(@intro_phrase) do |f|
+= simple_form_for @intro_phrase, url: @intro_phrase.new_record? ? intro_phrases_path : intro_phrase_path(@intro_phrase) do |f|
   = f.input :text
   = f.input :pro_hillary, :as => :select
   = f.button :submit
