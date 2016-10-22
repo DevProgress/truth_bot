@@ -1,4 +1,4 @@
-= simple_form_for @topic, , url: @topic.new_record? ? topics_path : topic_path(@topic) do |f|
+= simple_form_for @topic, url: @topic.new_record? ? topics_path : topic_path(@topic) do |f|
   = f.input :name
   = f.input :pro_hillary, :as => :select
   = f.button :submit
