@@ -10,9 +10,9 @@
       %th
         Pro-Hillary
   %tbody
-    - @intro_phrases.each do |intro_phase|
+    - @intro_phrases.each do |phrase|
       %tr
         %td
-          =link_to intro_phase.text, intro_phrase_path(intro_phase)
+          =link_to phrase.text, intro_phrase_path(phrase)
         %td
-          =link_to intro_phase.pro_hillary, intro_phrase_path(intro_phase)
+          =link_to phrase.pro_hillary.nil? ? "NULL" : phrase.pro_hillary ? "True" : "False", intro_phrase_path(phrase)
