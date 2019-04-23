@@ -1,30 +1,30 @@
 source 'https://rubygems.org'
 
 ruby '2.3.1'
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails'
 
-gem 'aws-sdk', '~> 2.6', '>= 2.6.3'
-gem 'bootstrap', '~> 4.0.0.alpha4'
+gem 'aws-sdk'
+gem 'bootstrap'
 gem 'bootstrap-social-rails'
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails'
 gem 'delayed_job_active_record'
-gem 'devise', '~> 4.2'
+gem 'devise'
 gem 'font-awesome-sass'
-gem 'haml', '~> 4.0', '>= 4.0.7'
-gem 'jbuilder', '~> 2.5'
+gem 'haml'
+gem 'jbuilder'
 gem 'jquery-rails'
-gem 'local_time', '~> 1.0', '>= 1.0.3'
-gem 'mysql2', '~> 0.4.4'
+gem 'local_time'
+gem 'mysql2'
 gem 'omniauth-facebook'
-gem 'paperclip', '~> 5.1'
-gem 'puma', '~> 3.0'
+gem 'paperclip'
+gem 'puma'
 gem 'pundit'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 gem 'shorturl'
-gem 'turbolinks', '~> 5'
-gem 'uglifier', '>= 1.3.0'
-gem 'tweetstream', '~> 2.6.1'
-gem 'unicorn', '~> 5.1.0'
+gem 'turbolinks'
+gem 'uglifier'
+gem 'tweetstream'
+gem 'unicorn'
 
 group :production do
   
@@ -38,9 +38,9 @@ end
 
 group :development do
   gem 'web-console'
-  gem 'listen', '~> 3.0.5'
+  gem 'listen'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
